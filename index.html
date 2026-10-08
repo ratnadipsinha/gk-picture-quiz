@@ -142,7 +142,6 @@ input.ans{width:100%;font-family:"Lexend",sans-serif;font-size:15px}
     <div class="score" id="score" aria-live="polite">— <small>/ 100</small></div>
     <div class="btns">
       <button class="primary" id="btn-check" type="button">Check answers</button>
-      <button id="btn-key" type="button" aria-pressed="false">Show answer key</button>
       <button id="btn-reset" type="button">Start over</button>
     </div>
   </div>
@@ -370,7 +369,6 @@ function makeSlot(it){
     }});
   }
   const fb = document.createElement("div"); fb.className="fb"; slot.append(fb);
-  const key = document.createElement("div"); key.className="key"; key.hidden=true; key.textContent = "Answer: " + display(it); slot.append(key);
   return slot;
 }
 function clearMark(slot){ slot.classList.remove("right","wrong","close"); slot.querySelector(".fb").textContent=""; }
@@ -430,14 +428,6 @@ document.getElementById("btn-check").addEventListener("click",()=>{
     else fb.textContent = "Not quite";
   });
   scoreEl.innerHTML = `${got} <small>/ ${total}${close?` · ${close} need spelling fixes`:""}</small>`;
-});
-
-const keyBtn = document.getElementById("btn-key");
-keyBtn.addEventListener("click",()=>{
-  const on = keyBtn.getAttribute("aria-pressed")!=="true";
-  keyBtn.setAttribute("aria-pressed",String(on));
-  keyBtn.textContent = on ? "Hide answer key" : "Show answer key";
-  document.querySelectorAll(".key").forEach(k=>k.hidden=!on);
 });
 
 document.getElementById("btn-reset").addEventListener("click",()=>{
